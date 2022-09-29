@@ -1,0 +1,44 @@
+body{
+    margin:0px;
+    padding:0px;
+}
+
+
+/* MENU */
+.menu{
+    height: 35px;
+    width:100%;
+    background-color: lightskyblue;
+
+    display:flex;
+    flex-direction:'row';
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.menu_option{
+    height:25px;
+    padding-left: 8px;
+    padding-right: 8px;
+    
+    display: flex;
+    align-items: center;
+
+    
+    color:black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu_option:hover{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.activated{
+    background-color: white;
+    border-radius: 15px;
+    cursor: default;
+}
+
+/* FORMULÁRIOS */
