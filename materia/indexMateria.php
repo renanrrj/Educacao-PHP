@@ -58,8 +58,8 @@
     <h2>Crie seu login e senha</h2>
     <form id="form" method="POST" action="insertMateria.php" onSubmit="return valida_dados(this)">
         <p>
-            Id da matéria:
-            <select name="idMateria">
+            Matéria:
+            <select name="idmateria">
                 <?php
                     foreach($listaMaterias as $materia){
                 ?>

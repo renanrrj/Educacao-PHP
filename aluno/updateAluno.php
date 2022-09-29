@@ -3,6 +3,7 @@ require_once '../mysql.php';
 
 $nmAluno = addslashes($_POST['nmaluno']);
 $idAluno = $_POST['idaluno'];   
+
 $validado = true;
 
 $listaAlunos = [];

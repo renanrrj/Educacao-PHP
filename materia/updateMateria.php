@@ -1,34 +1,35 @@
 <?php
 require_once '../mysql.php';
 
-$idAluno = $_POST['Id_Aluno'];
-$login = addslashes($_POST['login']); # addslashes -> Bloqueia ataque de sqlInject
-$senha = md5($_POST['senha']); # md5-> Criptografa a senha e tira retorno
+$dsMateria = $_POST['dsmateria'];
+$idMateria = $_POST['idmateria']; 
 
-if(is_numeric($idAluno)){
-    $sqlAluno = "SELECT idaluno FROM aluno where idaluno = $idAluno";  
-    $listaAlunos = selectRegistros($sqlAluno);
-    
-    
-    $sqlLogin = "SELECT dslogin FROM login where dslogin = '$login'";  
-    $listaLogin = selectRegistros($sqlLogin);
-    
-    $validado = true;
-    
+$validado = true;
+
+$listaMateria = [];
+if(is_numeric($idMateria)){
+    $validado= false;
+}else
+{
+    $sqlidMateria = "SELECT idmateria FROM materia where idmateria = $idMateria";
+    $listaMateria = selectRegistros($sqlidMateria);
+}
     //! VERIFICA SE EXISTE ALGUM ALUNO COM ESSE ID, É NECESSÁRIO QUE EXISTA
-    //! VERIFICA SE EXISTE ALGUM USUÁRIO COM ESSE LOGIN, É NECESSÁRIO QUE EXISTA
-    if($listaAlunos == [] || $listaLogin == []){
+
+    if($listaMateria == []){
         $validado = false;
-        echo 'Edição não permitida';
+        echo 'Edição não permitida - ';
     }
 
     if($validado){
-        $sqlUpAluno = "UPDATE `login` SET `dssenha` = '$senha', `idaluno` = $idAluno WHERE `dslogin` = '$login'";
-        $resultado = updateRegistro($sqlUpAluno);
-        
+        $sqlupMateria = "UPDATE `materia` SET `dsmateria` = '$dsMateria' WHERE `idmateria` = '$idMateria'";
+        $resultado = updateRegistro($sqlupMateria);
+        echo "teste update";
         echo $resultado;
     }
-}else{
+else{
     echo 'Dados inválidos, verifique os dados inseridos!';
 }
-?>
+
+# update `TABELA` set `NOME`= 'VARIÁVEL', `NOME`= 'VARIÁVEL' where `NOME`= 'VARIÁVEL';
+?>  

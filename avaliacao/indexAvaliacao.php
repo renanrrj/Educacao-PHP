@@ -1,7 +1,7 @@
 <?php
     require_once "../mysql.php";
 
-    $sql = "SELECT idmateria,dsmateria FROM materia";
+    $sqlMateria = "SELECT idmateria,dsmateria FROM materia";
 
     $listaMaterias = selectRegistros($sql);
 ?>
@@ -57,7 +57,16 @@
     <h2>Crie seu login e senha</h2>
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
-            Id da avaliação: <input type="text" name="Id_Avaliacao" size="20">
+            Avaliação:
+            <select name="idMateria">
+                <?php
+                    foreach($listaMaterias as $materia){
+                ?>
+                    <option value="<?php echo $materia['idmateria'] ?>"><?php echo ucfirst(strtolower($materia['dsmateria'])) ?></option>
+                <?php
+                    }
+                ?>
+            </select>
             <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
 
         </p>

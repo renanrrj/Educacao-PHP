@@ -20,7 +20,7 @@
         <a class="menu_option" href="./login/indexLogin.php">Login</a>
     </div>
     <h2>Preencha com o nome do aluno</h2>
-    <form method="POST" action="./validaaluno.php" id="form" >
+    <form method="POST" action="./validaaluno.php" id="form">
         <p>
             Id do aluno: 
             <input type="text" class="input" name="idaluno"/>
