@@ -1,4 +1,4 @@
-<?php # alteração de teste commit
+<?php # COMPLETO
 require_once '../mysql.php';
 
 $idAluno = $_POST['idaluno'];   

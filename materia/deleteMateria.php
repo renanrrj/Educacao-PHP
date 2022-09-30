@@ -1,21 +1,36 @@
-<?php
+<?php # Completo
 require_once '../mysql.php';
 
-$login = addslashes($_POST['login']); # addslashes -> Bloqueia ataque de sqlInject
+$dsMateria = $_POST['dsmateria'];
+$idMateria = $_POST['idmateria'];
 
-$sqlLogin = "SELECT dslogin FROM login where dslogin = '$login'";
-$listaLogin = selectRegistros($sqlLogin);
 $validado = true;
 
-//! VERIFICA SE EXISTE ALGUM USUÁRIO COM ESSE LOGIN, É NECESSÁRIO QUE EXISTA
-if ($listaLogin == []) {
+$listaMateria = [];
+if(!is_numeric($idMateria))
+{
     $validado = false;
-    echo 'Exclusão não permitida';
+}
+else
+{
+    $sqlidMateria = "SELECT idmateria FROM materia where idmateria = $idMateria";
+    $listaidMateria = selectRegistros($sqlidMateria);
 }
 
-if ($validado) {
-    $sqlDelAluno = "DELETE FROM `login` WHERE `dslogin`='$login'";
-    $resultado = deleteRegistro($sqlDelAluno);
+if($listaMateria=[])
+{
+    $validado=false;
+    echo "edição nao permitida";
+}
+if($validado)
+{
+    $sqldelMateria = "DELETE FROM `materia` WHERE `idmateria` = $idMateria";
+    $resultado = deleteRegistro($sqldelMateria);
 
     echo $resultado;
 }
+else
+{
+    echo "dados inválidos";
+}
+?>

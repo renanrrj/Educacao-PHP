@@ -1,4 +1,4 @@
-<?php
+<?php # COMPLETO
 require_once '../mysql.php';
 
 $nmAluno = addslashes($_POST['nmaluno']);
