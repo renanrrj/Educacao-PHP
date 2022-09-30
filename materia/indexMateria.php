@@ -55,7 +55,7 @@
         <a class="menu_option" href="../login/indexLogin.php">Login</a>
     </div>
 
-    <h2>Crie seu login e senha</h2>
+    <h2>Matérias</h2>
     <form id="form" method="POST" action="insertMateria.php" onSubmit="return valida_dados(this)">
         <p>
             Matéria:
@@ -68,6 +68,7 @@
                     }
                 ?>
             </select>
+            <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
         </p>
         <p>
             Nome: <input type="text" name="dsmateria" size="20">

@@ -61,10 +61,10 @@
         <a class="menu_option" href="../login/indexLogin.php">Login</a>
     </div>
 
-    <h2>Crie seu login e senha</h2>
+    <h2>Alunos matriculados</h2>
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
-            Id:
+            Aluno matriculado:
             <select name="idAluno">
                 <?php
                     foreach($listaAlunosmatriculados as $alunoM){
@@ -74,6 +74,7 @@
                     }
                 ?>
             </select>
+            <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
         </p>
         <p>
             Aluno:

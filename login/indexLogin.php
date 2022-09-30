@@ -1,3 +1,11 @@
+<?php
+    require_once "../mysql.php";
+
+    $sqlAlunos = "SELECT idaluno,nmaluno FROM aluno";
+
+    $listaAlunos = selectRegistros($sqlAlunos);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -49,7 +57,16 @@
     <h2>Crie seu login e senha</h2>
     <form id="form" method="POST" action="insertLogin.php" onSubmit="return valida_dados(this)">
         <p>
-            Id Aluno:
+            Aluno:
+            <select name="idAluno">
+                <?php
+                    foreach($listaAlunos as $aluno){
+                ?>
+                    <option value="<?php echo $aluno['idaluno'] ?>"><?php echo ucfirst(strtolower($aluno['nmaluno'])) ?></option>
+                <?php
+                    }
+                ?>
+            </select>
         </p>
         <p>
             Login: <input type="text" name="login" size="20">

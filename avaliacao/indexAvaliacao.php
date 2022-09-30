@@ -3,7 +3,9 @@
 
     $sqlMateria = "SELECT idmateria,dsmateria FROM materia";
 
-    $listaMaterias = selectRegistros($sql);
+    $listaMaterias = selectRegistros($sqlMateria);
+
+    array_unshift($listaMaterias,["idmateria" => "","dsmateria" => ""]);
 ?>
 
 <!DOCTYPE html>

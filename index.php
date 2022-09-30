@@ -1,3 +1,12 @@
+<?php
+    require_once "./mysql.php";
+
+    $sqlAlunos = "SELECT * FROM aluno";
+    $listaAlunos = selectRegistros($sqlAlunos);
+
+    array_unshift($listaAlunos,["idaluno" => "","nmaluno" => ""]);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -22,8 +31,16 @@
     <h2>Preencha com o nome do aluno</h2>
     <form method="POST" action="./validaaluno.php" id="form">
         <p>
-            Id do aluno: 
-            <input type="text" class="input" name="idaluno"/>
+            Aluno: 
+            <select name="idAluno">
+                <?php
+                    foreach($listaAlunos as $aluno){
+                ?>
+                    <option value="<?php echo $aluno['idaluno'] ?>"><?php echo ucfirst(strtolower($aluno['nmaluno'])) ?></option>
+                <?php
+                    }
+                ?>
+            </select>
             <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
         </p>
         <p>Nome do aluno: <input type="text" class="input" name="nmaluno"/></p>
