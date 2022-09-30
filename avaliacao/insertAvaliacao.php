@@ -1,22 +1,38 @@
-<?php
+<?php # COMPLETO
  require_once '../mysql.php';
 
-$idMateria = addslashes ($_POST['Id_Materia']);
-$idAvaliacao = addslashes($_POST['Id_Avaliacao']);
-$descricao = addslashes ($_POST['descricao']);
+$idMateria = $_POST['IdMateria'];
+$idAvaliacao = $_POST['IdAvaliacao'];
+$descricao = addslashes ($_POST['DEScricao']);
 
-if(is_numeric($idAvaliacao))
-{
-    $sqlAvaliacao = "SELECT idavaliacao FROM avaliacao where idavaliacao = $idAvaliacao";  
-    $listaidAlunos = selectRegistros($sqlAvaliacao);
+$sqlAvaliacao = "SELECT * FROM avaliacao where dsavaliacao";  
+$listadsAvaliacao = selectRegistros($sqlAvaliacao);
 
-    $sqlinAvaliacao = "INSERT INTO `avaliacao` VALUES ('$descricao', '$idMateria', '$idAvaliacao')";
-    $resultado = insereRegistro($sqlinAvaliacao);
+$validado = true;
 
-    echo $resultado;
+if($listadsAvaliacao == [] ){
+    $validado = false;
+    echo 'Inserção nao permitida';
 }
 
+//* CRIANDO ID
+$idAvaliacao = 1;
+$idLivre = false;
+while($idLivre == false){
+    $sqlidAvaliacao = "SELECT idavaliacao FROM avaliacao where idavaliacao = $idAvaliacao";
+    $resultadoIdAvaliacao = selectRegistros($sqlidAvaliacao);
 
+    if($resultadoIdAvaliacao == []){
+        $idLivre = true;
+    }else{
+        $idAvaliacao++;
+    }
+}
 
+if($validado){
+    $sqlInAluno = "INSERT INTO `avaliacao`(`idmateria`, `dsavaliacao`, `idavaliacao`) VALUES( $idAvaliacao,'$descricao', $idMateria)";
+    $resultado = insereRegistro($sqlInAluno);
+    
+    echo $resultado;}
 
 ?>
