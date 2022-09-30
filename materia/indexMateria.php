@@ -1,9 +1,11 @@
 <?php
     require_once "../mysql.php";
 
-    $sql = "SELECT idmateria,dsmateria FROM materia";
+    $sqlMateriasLista = "SELECT * FROM materia ORDER BY dsmateria";
+    $sqlMateriasTable = "SELECT * FROM materia ORDER BY idmateria";
 
-    $listaMaterias = selectRegistros($sql);
+    $listaMaterias = selectRegistros($sqlMateriasLista);
+    $listaMateriasTable = selectRegistros($sqlMateriasTable);
     array_unshift($listaMaterias,["idmateria" => "","dsmateria" => ""]);
 ?>
 
@@ -78,6 +80,25 @@
     <input type="button" value="Enviar" onclick="document.getElementById('form').action = 'insertMateria.php'; document.getElementById('form').submit()">
     <input type="button" value="Atualizar" onclick="document.getElementById('form').action = 'updateMateria.php'; document.getElementById('form').submit()">
     <input type="button" value="Deletar" onclick="document.getElementById('form').action = 'deleteMateria.php'; document.getElementById('form').submit()">
+
+    <table class="table">
+        <thead>
+            <th class="tableHeaderCell">Id</th>
+            <th class="tableHeaderCell">Nome</th>
+        </thead>
+        <tbody>
+            <?php
+                foreach($listaMateriasTable as $materia){
+            ?>
+            <tr>
+                <td class="tableCell"><?php echo $materia['idmateria']?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($materia['dsmateria']))?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
 </body>
 
 </html>

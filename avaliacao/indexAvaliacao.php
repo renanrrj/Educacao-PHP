@@ -1,11 +1,15 @@
 <?php
     require_once "../mysql.php";
 
+    $sqlAvaliacao = "SELECT a.idavaliacao, CONCAT(a.dsavaliacao,' / ',m.dsmateria) as nmavaliacao FROM avaliacao a INNER JOIN materia m on a.idmateria = m.idmateria ORDER BY nmavaliacao";
+    $sqlAvalicaoTable = "SELECT a.*, m.dsmateria FROM avaliacao a INNER JOIN materia m on a.idmateria = m.idmateria ORDER BY a.idavaliacao";
     $sqlMateria = "SELECT idmateria,dsmateria FROM materia";
 
+    $listaAvaliacao = selectRegistros($sqlAvaliacao);
+    $listaAvaliacaoTable = selectRegistros($sqlAvalicaoTable);
     $listaMaterias = selectRegistros($sqlMateria);
 
-    array_unshift($listaMaterias,["idmateria" => "","dsmateria" => ""]);
+    array_unshift($listaAvaliacao,["idavaliacao" => "","nmavaliacao" => ""]);
 ?>
 
 <!DOCTYPE html>
@@ -56,15 +60,15 @@
         <a class="menu_option" href="../login/indexLogin.php">Login</a>
     </div>
 
-    <h2>Crie seu login e senha</h2>
+    <h2>Avaliações</h2>
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
             Avaliação:
             <select name="IdAvaliacao">
                 <?php
-                    foreach($listaMaterias as $materia){
+                    foreach($listaAvaliacao as $avaliacao){
                 ?>
-                    <option value="<?php echo $materia['idmateria'] ?>"><?php echo ucfirst(strtolower($materia['dsmateria'])) ?></option>
+                    <option value="<?php echo $avaliacao['idavaliacao'] ?>"><?php echo ucfirst(strtolower($avaliacao['nmavaliacao'])) ?></option>
                 <?php
                     }
                 ?>
@@ -92,5 +96,26 @@
     <input type="button" value="Enviar" onclick="document.getElementById('form').action = 'insertAvaliacao.php'; document.getElementById('form').submit()">
     <input type="button" value="Atualizar" onclick="document.getElementById('form').action = 'updateAvaliacao.php'; document.getElementById('form').submit()">
     <input type="button" value="Deletar" onclick="document.getElementById('form').action = 'deleteAvaliacao.php'; document.getElementById('form').submit()">
+
+    <table class="table">
+        <thead>
+            <th class="tableHeaderCell">Id</th>
+            <th class="tableHeaderCell">Nome</th>
+            <th class="tableHeaderCell">Matéria</th>
+        </thead>
+        <tbody>
+            <?php
+                foreach($listaAvaliacaoTable as $avaliacao){
+            ?>
+            <tr>
+                <td class="tableCell"><?php echo $avaliacao['idavaliacao']?></td>
+                <td class="tableCell"><?php echo $avaliacao['dsavaliacao']?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($avaliacao['dsmateria']))?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
 </body>
 </html>

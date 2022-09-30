@@ -1,8 +1,11 @@
 <?php
     require_once "./mysql.php";
 
-    $sqlAlunos = "SELECT * FROM aluno";
+    $sqlAlunos = "SELECT * FROM aluno ORDER BY nmaluno";
+    $sqlAlunosTable = "SELECT * FROM aluno ORDER BY idaluno";
+
     $listaAlunos = selectRegistros($sqlAlunos);
+    $listaAlunosTable = selectRegistros(($sqlAlunosTable));
 
     array_unshift($listaAlunos,["idaluno" => "","nmaluno" => ""]);
 ?>
@@ -28,7 +31,7 @@
         <a class="menu_option" href="">Avaliação do aluno</a>
         <a class="menu_option" href="./login/indexLogin.php">Login</a>
     </div>
-    <h2>Preencha com o nome do aluno</h2>
+    <h2>Alunos</h2>
     <form method="POST" action="./validaaluno.php" id="form">
         <p>
             Aluno: 
@@ -49,5 +52,24 @@
     <input type="button" value="Enviar" onclick="document.getElementById('form').action = './aluno/insertAluno.php'; document.getElementById('form').submit()">
     <input type="button" value="Atualizar" onclick="document.getElementById('form').action = './aluno/updateAluno.php'; document.getElementById('form').submit()">
     <input type="button" value="Deletar" onclick="document.getElementById('form').action = './aluno/deleteAluno.php'; document.getElementById('form').submit()">
+
+    <table class="table">
+        <thead>
+            <th class="tableHeaderCell">Id</th>
+            <th class="tableHeaderCell">Nome</th>
+        </thead>
+        <tbody>
+            <?php
+                foreach($listaAlunosTable as $aluno){
+            ?>
+            <tr>
+                <td class="tableCell"><?php echo $aluno['idaluno']?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($aluno['nmaluno']))?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
 </body>
 </html>

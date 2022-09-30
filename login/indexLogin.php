@@ -2,8 +2,13 @@
     require_once "../mysql.php";
 
     $sqlAlunos = "SELECT idaluno,nmaluno FROM aluno";
+    $sqlLogin = "SELECT l.*, a.nmaluno FROM login l INNER JOIN aluno a on a.idaluno = l.idaluno ORDER BY dslogin";
 
     $listaAlunos = selectRegistros($sqlAlunos);
+    $listaLoginTable = selectRegistros($sqlLogin);
+    $listaLogin = $listaLoginTable;
+
+    array_unshift($listaLogin,["dslogin" => "","nmaluno" => "","dssenha" => ""]);
 ?>
 
 <!DOCTYPE html>
@@ -54,8 +59,20 @@
         <a class="menu_option activated">Login</a>
     </div>
 
-    <h2>Crie seu login e senha</h2>
+    <h2>Logins</h2>
     <form id="form" method="POST" action="insertLogin.php" onSubmit="return valida_dados(this)">
+        <p>
+            Selecionado:
+            <select name="selLogin">
+                <?php
+                    foreach($listaLogin as $login){
+                ?>
+                    <option value="<?php echo $login['dslogin'] ?>"><?php echo ucfirst(strtolower($login['dslogin'])) ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        </p>
         <p>
             Aluno:
             <select name="idAluno">
@@ -82,6 +99,27 @@
     <input type="button" value="Enviar" onclick="document.getElementById('form').action = 'insertLogin.php'; document.getElementById('form').submit()">
     <input type="button" value="Atualizar" onclick="document.getElementById('form').action = 'updateLogin.php'; document.getElementById('form').submit()">
     <input type="button" value="Deletar" onclick="document.getElementById('form').action = 'deleteLogin.php'; document.getElementById('form').submit()">
+
+    <table class="table">
+        <thead>
+            <th class="tableHeaderCell">Login</th>
+            <th class="tableHeaderCell">Senha</th>
+            <th class="tableHeaderCell">Aluno</th>
+        </thead>
+        <tbody>
+            <?php
+                foreach($listaLoginTable as $login){
+            ?>
+            <tr>
+                <td class="tableCell"><?php echo $login['dslogin']?></td>
+                <td class="tableCell"><?php echo $login['dssenha']?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($login['nmaluno']))?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
 </body>
 
 </html>

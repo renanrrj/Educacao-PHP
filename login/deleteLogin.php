@@ -1,7 +1,7 @@
 <?php
 require_once '../mysql.php';
 
-$login = addslashes($_POST['login']); # addslashes -> Bloqueia ataque de sqlInject
+$login = addslashes($_POST['selLogin']); # addslashes -> Bloqueia ataque de sqlInject
 
 $sqlLogin = "SELECT dslogin FROM login where dslogin = '$login'";
 $listaLogin = selectRegistros($sqlLogin);

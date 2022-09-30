@@ -3,10 +3,11 @@ require_once '../mysql.php';
 
 $idAluno = $_POST['idAluno'];
 $login = addslashes($_POST['login']); # addslashes -> Bloqueia ataque de sqlInject
-$senha = md5($_POST['senha']); # md5-> Criptografa a senha e tira retorno
+$senha = $_POST['senha']; # md5-> Criptografa a senha e tira retorno
 
-if(is_numeric($idAluno))
+if(is_numeric($idAluno) && $login != "" && $senha != "")
 {
+    $senha = md5($senha);
     $sqlAluno = "SELECT idaluno FROM aluno where idaluno = $idAluno";  
     $listaidAlunos = selectRegistros($sqlAluno);
     

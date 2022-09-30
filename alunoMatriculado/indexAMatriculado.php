@@ -1,16 +1,18 @@
 <?php
     require_once "../mysql.php";
 
-    $sqlAlunoMatriculado = "SELECT am.idalunomatriculado, CONCAT(a.nmaluno,' / ', m.dsmateria) as conteudo FROM alunomatriculado am INNER JOIN aluno a on a.idaluno = am.idaluno INNER JOIN materia m on m.idmateria = am.idmateria";
-    
-    $sqlAlunos = "SELECT idaluno,nmaluno FROM aluno";
-    $sqlMaterias = "SELECT idmateria,dsmateria FROM materia";
+    $sqlAlunoMatriculado = "SELECT am.idalunomatriculado, CONCAT(a.nmaluno,' / ', m.dsmateria) as conteudo FROM alunomatriculado am INNER JOIN aluno a on a.idaluno = am.idaluno INNER JOIN materia m on m.idmateria = am.idmateria ORDER BY conteudo";
+    $sqlAlunoMatriculadoTable = "SELECT am.idalunomatriculado, a.nmaluno, m.dsmateria FROM alunomatriculado am INNER JOIN aluno a on a.idaluno = am.idaluno INNER JOIN materia m on m.idmateria = am.idmateria ORDER BY am.idalunomatriculado";
 
-    $listaAlunosmatriculados = selectRegistros($sqlAlunoMatriculado);
+    $sqlAlunos = "SELECT idaluno,nmaluno FROM aluno ORDER BY nmaluno";
+    $sqlMaterias = "SELECT idmateria,dsmateria FROM materia ORDER BY dsmateria";
+
+    $listaAlunosMatriculados = selectRegistros($sqlAlunoMatriculado);
+    $listaAlunosMatriculadosTable = selectRegistros($sqlAlunoMatriculadoTable);
     $listaAlunos = selectRegistros($sqlAlunos);
     $listaMaterias = selectRegistros($sqlMaterias);
 
-    array_unshift($listaAlunosmatriculados,["idalunomatriculado" => "","conteudo" => ""]);
+    array_unshift($listaAlunosMatriculados,["idalunomatriculado" => "","conteudo" => ""]);
 ?> 
 
 <!DOCTYPE html>
@@ -67,7 +69,7 @@
             Aluno matriculado:
             <select name="idAluno">
                 <?php
-                    foreach($listaAlunosmatriculados as $alunoM){
+                    foreach($listaAlunosMatriculados as $alunoM){
                 ?>
                     <option value="<?php echo $alunoM['idalunomatriculado'] ?>"><?php echo ucfirst(strtolower($alunoM['conteudo'])) ?></option>
                 <?php
@@ -105,6 +107,27 @@
     <input type="button" value="Enviar" onclick="document.getElementById('form').action = 'insertAMatriculado.php'; document.getElementById('form').submit()">
     <input type="button" value="Atualizar" onclick="document.getElementById('form').action = 'updateAMatriculado.php'; document.getElementById('form').submit()">
     <input type="button" value="Deletar" onclick="document.getElementById('form').action = 'deleteAMatriculado.php'; document.getElementById('form').submit()">
+
+    <table class="table">
+        <thead>
+            <th class="tableHeaderCell">Id</th>
+            <th class="tableHeaderCell">Aluno</th>
+            <th class="tableHeaderCell">Matéria</th>
+        </thead>
+        <tbody>
+            <?php
+                foreach($listaAlunosMatriculadosTable as $alunoM){
+            ?>
+            <tr>
+                <td class="tableCell"><?php echo $alunoM['idalunomatriculado']?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($alunoM['nmaluno']))?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($alunoM['dsmateria']))?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
 </body>
 
 </html>
