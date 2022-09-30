@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>- Login -</title>
+    <title>- AVALIAÇÃO -</title>
 
     <link href="../style.css" rel="stylesheet"></link>
 
@@ -60,7 +60,7 @@
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
             Avaliação:
-            <select name="idMateria">
+            <select name="IdAvaliacao">
                 <?php
                     foreach($listaMaterias as $materia){
                 ?>
@@ -73,11 +73,11 @@
 
         </p>
         <p>
-            Descrição: <input type="text" name="descricao" size="20">
+            Descrição: <input type="text" name="DEScricao" size="20">
         </p>
         <p>
             Matéria:
-            <select name="idMateria">
+            <select name="IdMateria">
                 <?php
                     foreach($listaMaterias as $materia){
                 ?>

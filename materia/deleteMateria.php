@@ -1,4 +1,4 @@
-<?php # Completo
+<?php # COMPLETO
 require_once '../mysql.php';
 
 $dsMateria = $_POST['dsmateria'];

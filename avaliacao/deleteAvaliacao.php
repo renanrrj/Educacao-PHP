@@ -1,7 +1,10 @@
 <?php
 require_once '../mysql.php';
 
-$idAvaliacao = $_POST['Id_Avaliacao'];
+$idMateria = $_POST['IdMateria'];
+$idAvaliacao = $_POST['IdAvaliacao'];
+$descricao = addslashes ($_POST['DEScricao']);
+
 $validado = true;
 
 $listaAvaliacao = [];
@@ -20,6 +23,9 @@ if($listaAvaliacao=[])
     $validado=false;
     echo "edição nao permitida";
 }
+
+
+
 if($validado)
 {
     $sqldelAvaliacao = "DELETE FROM `avaliacao` WHERE `idavaliacao` = $idAvaliacao";

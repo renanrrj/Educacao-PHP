@@ -11,8 +11,8 @@ if(is_numeric($idMateria)){
     $validado= false;
 }else
 {
-    $sqlidMateria = "SELECT idmateria FROM materia where idmateria = $idMateria";
-    $listaMateria = selectRegistros($sqlidMateria);
+    $sqldsMateria = "SELECT dsmateria FROM materia where dsmateria = '$idMateria'";
+    $listaMateria = selectRegistros($sqldsMateria);
 }
     //! VERIFICA SE EXISTE ALGUM ALUNO COM ESSE ID, É NECESSÁRIO QUE EXISTA
 

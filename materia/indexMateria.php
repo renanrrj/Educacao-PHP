@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>- Login -</title>
+    <title>- MATÉRIA -</title>
 
     <link href="../style.css" rel="stylesheet"></link>
 
@@ -59,7 +59,7 @@
     <form id="form" method="POST" action="insertMateria.php" onSubmit="return valida_dados(this)">
         <p>
             Matéria:
-            <select name="idmateria">
+            <select name="idmateria"> 
                 <?php
                     foreach($listaMaterias as $materia){
                 ?>
@@ -71,7 +71,7 @@
             <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
         </p>
         <p>
-            Nome: <input type="text" name="dsmateria" size="20">
+            Nome: <input type="text" name="dsmateria" size="20"> 
         </p>
     </form>
 
@@ -81,3 +81,4 @@
 </body>
 
 </html>
+

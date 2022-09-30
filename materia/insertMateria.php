@@ -1,4 +1,4 @@
-<?php
+<?php # COMPLETO
 require_once '../mysql.php';
 // $idMateria = $_POST['Id_Materia']; # addslashes -> Bloqueia ataque de sqlInject
 $dsMateria = $_POST['dsmateria']; # md5-> Criptografa a senha e tira retorno
