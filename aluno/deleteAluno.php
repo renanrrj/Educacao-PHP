@@ -1,7 +1,7 @@
 <?php # COMPLETO
 require_once '../mysql.php';
 
-$idAluno = $_POST['idaluno'];   
+$idAluno = $_POST['idAluno'];   
 $validado = true;
 
 $listaAlunos = [];

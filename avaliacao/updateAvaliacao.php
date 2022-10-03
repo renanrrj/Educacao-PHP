@@ -1,9 +1,9 @@
 <?php
 require_once '../mysql.php';
 
-$idAvaliacao = addslashes($_POST['Id_Avaliacao']);
-$Descricao = $_POST['descricao'];
-$idMateria = $_POST['Id_Materia'];   
+$idAvaliacao = addslashes($_POST['IdAvaliacao']);
+$Descricao = $_POST['DEScricao'];
+$idMateria = $_POST['IdMateria'];   
 $validado = true;
 
 $listaAvaliacao = [];

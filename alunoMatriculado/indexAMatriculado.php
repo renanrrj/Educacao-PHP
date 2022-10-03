@@ -67,7 +67,7 @@
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
             Aluno matriculado:
-            <select name="idAluno">
+            <select name="idAlunosmatric">
                 <?php
                     foreach($listaAlunosMatriculados as $alunoM){
                 ?>
