@@ -1,7 +1,10 @@
 <?php
     require_once "../mysql.php";
 
-    $sqlAvaliacao = "SELECT a.idavaliacao, CONCAT(a.dsavaliacao,' / ',m.dsmateria) as nmavaliacao FROM avaliacao a INNER JOIN materia m on a.idmateria = m.idmateria ORDER BY nmavaliacao";
+    $sqlAvaliacao = "SELECT a.idavaliacao, CONCAT(a.dsavaliacao,' / ',m.dsmateria) as nmavaliacao FROM avaliacao a
+    INNER JOIN materia m on a.idmateria = m.idmateria 
+    ORDER BY nmavaliacao";
+    
     $sqlAvalicaoTable = "SELECT a.*, m.dsmateria FROM avaliacao a INNER JOIN materia m on a.idmateria = m.idmateria ORDER BY a.idavaliacao";
     $sqlMateria = "SELECT idmateria,dsmateria FROM materia";
 
