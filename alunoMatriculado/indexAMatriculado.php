@@ -59,7 +59,7 @@
         <a class="menu_option" href="../materia/indexMateria.php">Matéria</a>
         <a class="menu_option activated" href="">Aluno matriculado</a>
         <a class="menu_option" href="../avaliacao/indexAvaliacao.php">Avaliação</a>
-        <a class="menu_option" href="">Avaliação do aluno</a>
+        <a class="menu_option" href="../avaliacaoaluno/indexAvaliacaoaluno.php">Avaliação do aluno</a>
         <a class="menu_option" href="../login/indexLogin.php">Login</a>
     </div>
 
@@ -67,7 +67,7 @@
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
             Aluno matriculado:
-            <select name="idAluno">
+            <select name="idAlunosmatric">
                 <?php
                     foreach($listaAlunosMatriculados as $alunoM){
                 ?>

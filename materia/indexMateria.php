@@ -53,7 +53,7 @@
         <a class="menu_option activated" href="">Matéria</a>
         <a class="menu_option" href="../alunoMatriculado/indexAMatriculado.php">Aluno matriculado</a>
         <a class="menu_option" href="../avaliacao/indexAvaliacao.php">Avaliação</a>
-        <a class="menu_option" href="">Avaliação do aluno</a>
+        <a class="menu_option" href="../avaliacaoaluno/indexAvaliacaoaluno.php">Avaliação do aluno</a>
         <a class="menu_option" href="../login/indexLogin.php">Login</a>
     </div>
 

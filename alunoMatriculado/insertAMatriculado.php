@@ -5,18 +5,38 @@ $idAlunomatriculado = addslashes ($_POST['idAlunosmatric']);
 $idAluno = addslashes($_POST['idAluno']);
 $idMateria = addslashes ($_POST['idMateria']);
 
-if(is_numeric($idAlunomatriculado))
-{
-    $sqlAlunoMatriculado = "SELECT * FROM alunomatriculado where idalunomatriculado = $idAlunomatriculado";  
-    $listaAlunoMatriculado = selectRegistros($sqlAlunoMatriculado);
+$sqlAlunomatriculado = "SELECT * FROM alunomatriculado where idaluno = $idAluno";  
+    $listaidAluno = selectRegistros($sqlAlunomatriculado);
 
-    if($listaAlunoMatriculado == []){
-        $sqlinAmatriculado = "INSERT INTO `alunomatriculado` VALUES ('$idAlunomatriculado', '$idMateria', '$idAluno')";
-        $resultado = insereRegistro($sqlinAmatriculado);
-    
-        echo $resultado;
-    }else{
-        echo "Este id já está sendo utilizado, tente outro!";
+    $validado = true;
+
+    if($listaidAluno != [] ){ ## ERRO
+        $validado = false;
+        echo 'Inserção nao permitida';
     }
+
+    # ID
+
+    $idAluno = 1;
+$idLivre = false;
+while($idLivre == false){
+    $sqlIdAluno = "SELECT * FROM aluno WHERE `idaluno` = $idAluno";
+    $resultadoIdAluno = selectRegistros($sqlIdAluno);
+
+    if($resultadoIdAluno == []){
+        $idLivre = true;
+    }else{
+        $idAluno++;
+    }
+}
+
+
+
+     //* INSERINDO DADO
+if($validado){
+    $sqlInAluno = "INSERT INTO `alunomatriculado`(`idaluno`, `idmateria`, `idalunomatriculado`) VALUES($idAluno, '$idMateria', '$idAlunomatriculado')"; # ERRO
+    $resultado = insereRegistro($sqlInAluno);
+    
+    echo $resultado;
 }
 ?>
