@@ -1,8 +1,8 @@
 <?php # COMPLETO
 require_once '../mysql.php';
 
+$idAluno = $_POST['idAluno'];   
 $nmAluno = addslashes($_POST['nmaluno']);
-$idAluno = $_POST['idaluno'];   
 
 $validado = true;
 
