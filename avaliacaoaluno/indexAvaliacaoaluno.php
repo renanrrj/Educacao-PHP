@@ -1,15 +1,30 @@
 <?php
     require_once "../mysql.php";
 
-    // $sqlAvaliacaoaluno = "SELECT a.idaluno, CONCAT(a.dsavaliacao,' / ',m.dsmateria) as nmavaliacao FROM avaliacao a INNER JOIN materia m on a.idmateria = m.idmateria ORDER BY nmavaliacao";
-    // $sqlAvalicaoTable = "SELECT a.*, m.dsmateria FROM avaliacao a INNER JOIN materia m on a.idmateria = m.idmateria ORDER BY a.idaluno";
-    // $sqlMateria = "SELECT idmateria,dsmateria FROM materia";
+    $sqlAvaliacaoAluno = "SELECT aa.idavaliacaoaluno, CONCAT(av.dsavaliacao,' / ',m.dsmateria,' / ',al.nmaluno) as conteudo FROM avaliacaoaluno aa 
+    INNER JOIN avaliacao av ON av.idavaliacao = aa.idavaliacao 
+    INNER JOIN materia m ON m.idmateria = av.idmateria 
+    INNER JOIN aluno al ON al.idaluno = aa.idaluno 
+    ORDER BY conteudo; ";
 
-    // $listaAvaliacao = selectRegistros($sqlAvaliacao);
-    // $listaAvaliacaoTable = selectRegistros($sqlAvalicaoTable);
-    // $listaMaterias = selectRegistros($sqlMateria);
+    $sqlAvalicaoAlunoTable = "SELECT aa.idavaliacaoaluno, CONCAT(av.dsavaliacao,' / ',m.dsmateria) as avaliacao, al.nmaluno, aa.nota FROM avaliacaoaluno aa 
+    INNER JOIN avaliacao av ON av.idavaliacao = aa.idavaliacao 
+    INNER JOIN materia m ON m.idmateria = av.idmateria
+    INNER JOIN aluno al ON al.idaluno = aa.idaluno
+    ORDER BY aa.idavaliacaoaluno";
 
-    // array_unshift($listaAvaliacao,["idavaliacao" => "","nmavaliacao" => ""]);
+    $sqlAvaliacao = "SELECT a.idavaliacao, CONCAT(a.dsavaliacao,' / ',m.dsmateria) as nmavaliacao FROM avaliacao a
+    INNER JOIN materia m on a.idmateria = m.idmateria 
+    ORDER BY nmavaliacao";
+
+    $sqlAluno = "SELECT * FROM aluno";
+
+    $listaAvaliacaoAluno = selectRegistros($sqlAvaliacaoAluno);
+    $listaAvaliacaoAlunoTable = selectRegistros($sqlAvalicaoAlunoTable);
+    $listaAvaliacao = selectRegistros($sqlAvaliacao);
+    $listaAluno = selectRegistros($sqlAluno);
+
+    array_unshift($listaAvaliacaoAluno,["idavaliacaoaluno" => "","conteudo" => ""]);
 ?>
 
 <!DOCTYPE html>
@@ -63,36 +78,45 @@
     <h2>Avaliações</h2>
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
-            Id Aluno:
-            <select name="IdAluno">
+            Avaliação do Aluno:
+            <select name="idAvaliacaoAluno">
                 <?php
-                    foreach($listaAvaliacaoaluno as $avaliacaoaluno){
+                    foreach($listaAvaliacaoAluno as $avaliacaoA){
                 ?>
-                    <option value="<?php echo $avaliacaoaluno['idavaliacao'] ?>"><?php echo ucfirst(strtolower($avaliacaoaluno['nmavaliacao'])) ?></option>
+                    <option value="<?php echo $avaliacaoA['idavaliacaoaluno'] ?>"><?php echo ucfirst(strtolower($avaliacaoA['conteudo'])) ?></option>
                 <?php
                     }
                 ?>
             </select>
-            <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
 
+            <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
         </p>
         <p>
-            Id Avaliação: <input type="text" name="idAvaliacao" size="20">
-        </p>
-        <p>
-            id Avaliação do Aluuno:
-            <select name="IdMateria">
+            Avaliação:
+            <select name="idAvaliacao">
                 <?php
-                    foreach($listaMaterias as $materia){
+                    foreach($listaAvaliacao as $avaliacao){
                 ?>
-                    <option value="<?php echo $materia['idmateria'] ?>"><?php echo ucfirst(strtolower($materia['dsmateria'])) ?></option>
+                    <option value="<?php echo $avaliacao['idavaliacao'] ?>"><?php echo ucfirst(strtolower($avaliacao['nmavaliacao'])) ?></option>
                 <?php
                     }
                 ?>
             </select>
         </p>
         <p>
-            Notas: <input type="text" name="idAvaliacao" size="20">
+            Aluno:
+            <select name="idAluno">
+                <?php
+                    foreach($listaAluno as $aluno){
+                ?>
+                    <option value="<?php echo $aluno['idaluno'] ?>"><?php echo ucfirst(strtolower($aluno['nmaluno'])) ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        </p>
+        <p>
+            Notas: <input type="text" name="nota" size="20">
         </p>
     </form>
 
@@ -103,17 +127,19 @@
     <table class="table">
         <thead>
             <th class="tableHeaderCell">Id</th>
-            <th class="tableHeaderCell">Nome</th>
-            <th class="tableHeaderCell">Matéria</th>
+            <th class="tableHeaderCell">Avaliação</th>
+            <th class="tableHeaderCell">Aluno</th>
+            <th class="tableHeaderCell">Nota</th>
         </thead>
         <tbody>
             <?php
-                foreach($listaAvaliacaoTable as $avaliacao){
+                foreach($listaAvaliacaoAlunoTable as $avaliacaoA){
             ?>
             <tr>
-                <td class="tableCell"><?php echo $avaliacao['idavaliacao']?></td>
-                <td class="tableCell"><?php echo $avaliacao['dsavaliacao']?></td>
-                <td class="tableCell"><?php echo ucfirst(strtolower($avaliacao['dsmateria']))?></td>
+                <td class="tableCell"><?php echo $avaliacaoA['idavaliacaoaluno']?></td>
+                <td class="tableCell"><?php echo $avaliacaoA['avaliacao']?></td>
+                <td class="tableCell"><?php echo ucfirst(strtolower($avaliacaoA['nmaluno']))?></td>
+                <td class="tableCell"><?php echo $avaliacaoA['nota']?></td>
             </tr>
             <?php
                 }

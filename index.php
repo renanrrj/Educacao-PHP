@@ -20,6 +20,24 @@
 
     <link href="./style.css" rel="stylesheet">
     </link>
+
+    <script>
+        function updateButtons(select){
+            const btnEnviar = document.getElementById('btnEnviar')
+            const btnAtualizar = document.getElementById('btnAtualizar')
+            const btnDeletar = document.getElementById('btnDeletar')
+
+            if(select.value == ""){
+                btnEnviar.disabled = false
+                btnAtualizar.disabled = true
+                btnDeletar.disabled = true
+            }else{
+                btnEnviar.disabled = true
+                btnAtualizar.disabled = false
+                btnDeletar.disabled = false
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -35,7 +53,7 @@
     <form method="POST" action="./validaaluno.php" id="form">
         <p>
             Aluno: 
-            <select name="idAluno">
+            <select name="idAluno" onchange="updateButtons(this)">
                 <?php
                     foreach($listaAlunos as $aluno){
                 ?>
@@ -49,9 +67,9 @@
         <p>Nome do aluno: <input type="text" class="input" name="nmaluno"/></p>
     </form>
 
-    <input type="button" value="Enviar" onclick="document.getElementById('form').action = './aluno/insertAluno.php'; document.getElementById('form').submit()">
-    <input type="button" value="Atualizar" onclick="document.getElementById('form').action = './aluno/updateAluno.php'; document.getElementById('form').submit()">
-    <input type="button" value="Deletar" onclick="document.getElementById('form').action = './aluno/deleteAluno.php'; document.getElementById('form').submit()">
+    <input id="btnEnviar" type="button" value="Enviar" onclick="document.getElementById('form').action = './aluno/insertAluno.php'; document.getElementById('form').submit()">
+    <input id="btnAtualizar" type="button" value="Atualizar" onclick="document.getElementById('form').action = './aluno/updateAluno.php'; document.getElementById('form').submit()" disabled>
+    <input id="btnDeletar" type="button" value="Deletar" onclick="document.getElementById('form').action = './aluno/deleteAluno.php'; document.getElementById('form').submit()" disabled>
 
     <table class="table">
         <thead>
