@@ -26,30 +26,24 @@
 
     <link href="../style.css" rel="stylesheet"></link>
 
-    <script language="javascript">
-        function valida_dados(nomeform) {
-            if (nomeform.login.value.length < 5 || nomeform.login.value.length > 15) {
-                alert("O login deve conter entre 5 e 15 caracteres.");
-                return false;
+    <script>
+
+function updateButtons(select){
+            const btnEnviar = document.getElementById('btnEnviar')
+            const btnAtualizar = document.getElementById('btnAtualizar')
+            const btnDeletar = document.getElementById('btnDeletar')
+
+            if(select.value == ""){
+                btnEnviar.disabled = false
+                btnAtualizar.disabled = true
+                btnDeletar.disabled = true
+            }else{
+                btnEnviar.disabled = true
+                btnAtualizar.disabled = false
+                btnDeletar.disabled = false
             }
-            if (nomeform.login.value.indexOf(' ', 0) != -1) {
-                alert("O login não pode conter espaços em branco.");
-                return false;
-            }
-            if (nomeform.senha.value.length < 5 || nomeform.senha.value.length > 15) {
-                alert("A senha deve conter entre 5 e 15 caracteres.");
-                return false;
-            }
-            if (nomeform.senha.value.indexOf(' ', 0) != -1) {
-                alert("A senha não pode conter espaços em branco.");
-                return false;
-            }
-            if (nomeform.senha.value != nomeform.confirmacao.value) {
-                alert("Senhas não conferem. Você digitou duas senhas diferentes.");
-                return false;
-            }
-            return true;
         }
+
     </script>
 </head>
 
@@ -67,7 +61,7 @@
     <form id="form" method="POST" action="insertAvaliacao.php" onSubmit="return valida_dados(this)">
         <p>
             Aluno matriculado:
-            <select name="idAlunosmatric">
+            <select name="idAlunosmatric" onchange="updateButtons(this)" >
                 <?php
                     foreach($listaAlunosMatriculados as $alunoM){
                 ?>
@@ -104,9 +98,9 @@
         </p>
     </form>
 
-    <input type="button" value="Enviar" onclick="document.getElementById('form').action = 'insertAMatriculado.php'; document.getElementById('form').submit()">
-    <input type="button" value="Atualizar" onclick="document.getElementById('form').action = 'updateAMatriculado.php'; document.getElementById('form').submit()">
-    <input type="button" value="Deletar" onclick="document.getElementById('form').action = 'deleteAMatriculado.php'; document.getElementById('form').submit()">
+    <input id="btnEnviar" type="button" value="Enviar" onclick="document.getElementById('form').action = './insertAMatriculado.php'; document.getElementById('form').submit()">
+    <input id="btnAtualizar" type="button" value="Atualizar" onclick="document.getElementById('form').action = './updateAMatriculado.php'; document.getElementById('form').submit()" disabled>
+    <input id="btnDeletar" type="button" value="Deletar" onclick="document.getElementById('form').action = './deleteAMatriculado.php'; document.getElementById('form').submit()" disabled>
 
     <table class="table">
         <thead>

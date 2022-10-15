@@ -1,36 +1,31 @@
-<?php # COMPLETO
+<?php
 require_once '../mysql.php';
 
-$dsMateria = $_POST['dsmateria'];
 $idMateria = $_POST['idmateria'];
-
 $validado = true;
 
 $listaMateria = [];
-if(!is_numeric($idMateria))
-{
+
+//! VERIFICA SE O ID DA MATÉRIA É UM NÚMERO 
+if(!is_numeric($idMateria)){
     $validado = false;
 }
-else
-{
-    $sqlidMateria = "SELECT idmateria FROM materia where idmateria = $idMateria";
-    $listaidMateria = selectRegistros($sqlidMateria);
+else{
+    $sqlMateria = "SELECT * FROM materia where idmateria = $idMateria";
+    $listaMateria = selectRegistros($sqlMateria);
 }
 
-if($listaMateria=[])
-{
+//! VERIFICA SE EXISTE ALGUMA MATÉRIA COM ESSE ID, É NECESSÁRIO QUE EXISTA
+if($listaMateria=[]){
     $validado=false;
-    echo "edição nao permitida";
+    echo "Deleção nao permitida, registro não encontrado!";
 }
-if($validado)
-{
+if($validado){
     $sqldelMateria = "DELETE FROM `materia` WHERE `idmateria` = $idMateria";
     $resultado = deleteRegistro($sqldelMateria);
 
     echo $resultado;
 }
-else
-{
-    echo "dados inválidos";
-}
+
+echo "<br><br><button onclick='document.location.replace(`./indexMateria.php`)'>Voltar</button>";
 ?>

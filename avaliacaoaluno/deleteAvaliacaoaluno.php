@@ -1,34 +1,31 @@
-<?php # COMPLETO
+<?php
 require_once '../mysql.php';
 
-$idAluno = $_POST['idAluno'];   
+$idAvaliacaoAluno = $_POST['idAvaliacaoAluno'];   
 $validado = true;
 
-$listaAlunos = [];
-if(!is_numeric($idAluno))
-{
+$listaAvaliacaoAluno = [];
+
+//! VERIFICA SE O ID DA AVALIAÇÃO DE ALUNO É UM NÚMERO 
+if(!is_numeric($idAvaliacaoAluno)){
     $validado = false;
-}
-else
-{
-    $sqlAluno = "SELECT idaluno FROM aluno where idaluno = $idAluno";  
-    $listaAlunos = selectRegistros($sqlAluno);
+    echo 'Verifique a avaliação de aluno escolhida e tente novamente!<br>';
+}else{
+    $sqlAvaliacaoAluno = "SELECT * FROM avaliacaoaluno where idavaliacaoaluno = $idAvaliacaoAluno";  
+    $listaAvaliacaoAluno = selectRegistros($sqlAvaliacaoAluno);
 }
 
-//! VERIFICA SE EXISTE ALGUM USUÁRIO COM ESSE LOGIN, É NECESSÁRIO QUE EXISTA
-if($listaAlunos == [])
-{
+//! VERIFICA SE EXISTE ALGUMA AVALIAÇÃO DE ALUNO COM ESSE ID, É NECESSÁRIO QUE EXISTA
+if($listaAvaliacaoAluno == []){
     $validado = false;
-    echo 'Edição não permitida';
+    echo 'Deleção não permitida, registro não encontrado!';
 }
-if($validado)
-{
-    $sqlDelAluno = "DELETE FROM `aluno` WHERE `idaluno` = $idAluno";
-    $resultado = deleteRegistro($sqlDelAluno);
+if($validado){
+    $sqlDelAvaliacaoAluno = "DELETE FROM `avaliacaoaluno` WHERE `idavaliacaoaluno` = $idAvaliacaoAluno";
+    $resultado = deleteRegistro($sqlDelAvaliacaoAluno);
     
     echo $resultado;    
 }
-else
-{
-    echo 'Dados inválidos, verifique os dados inseridos!';
-}
+
+echo "<br><br><button onclick='document.location.replace(`./indexAvaliacaoAluno.php`)'>Voltar</button>";
+?>

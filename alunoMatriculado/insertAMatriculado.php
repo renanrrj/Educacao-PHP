@@ -1,42 +1,58 @@
 <?php
  require_once '../mysql.php';
 
-$idAlunomatriculado = addslashes ($_POST['idAlunosmatric']);
-$idAluno = addslashes($_POST['idAluno']);
-$idMateria = addslashes ($_POST['idMateria']);
+$idAluno = $_POST['idAluno'];
+$idMateria = $_POST['idMateria'];
 
-$sqlAlunomatriculado = "SELECT * FROM alunomatriculado where idaluno = $idAluno";  
-    $listaidAluno = selectRegistros($sqlAlunomatriculado);
+$validado = true;
+$listaAluno = [];
+$listaMateria = [];
 
-    $validado = true;
+//^ VERIFICANDO SE OS ids SÃO NÚMEROS ANTES DE FAZER O SELECT
+if(is_numeric($idAluno) && is_numeric($idMateria)){
+    $sqlAluno = "SELECT * FROM aluno where idaluno = $idAluno";  
+    $listaAluno = selectRegistros($sqlAluno);
 
-    if($listaidAluno != [] ){ ## ERRO
-        $validado = false;
-        echo 'Inserção nao permitida';
-    }
+    $sqlMateria = "SELECT * FROM materia where idmateria = $idMateria";  
+    $listaMateria = selectRegistros($sqlMateria);
+}else{
+    $validado = false;
+    echo 'Verifique o aluno e a matéria escolhidos e tente novamente!<br>';
+}
 
-    # ID
+//^ VERIFICANDO SE FOI ENCONTRADO O ALUNO ESCOLHIDO
+if($listaAluno == []){
+    $validado = false;
+    echo 'Inserção não permitida, o aluno escolhido não foi encontrado!<br>';
+}
 
-    $idAluno = 1;
+//^ VERIFICANDO SE FOI ENCONTRADO A MATÉRIA ESCOLHIDA
+if($listaMateria == []){
+    $validado = false;
+    echo 'Inserção não permitida, a matéria escolhida não foi encontrada!<br>';
+}
+
+//* CRIANDO ID
+$idAlunoM = 1;
 $idLivre = false;
 while($idLivre == false){
-    $sqlIdAluno = "SELECT * FROM aluno WHERE `idaluno` = $idAluno";
-    $resultadoIdAluno = selectRegistros($sqlIdAluno);
+    $sqlIdAlunoM = "SELECT * FROM alunomatriculado WHERE `idalunomatriculado` = $idAlunoM";
+    $resultadoIdAlunoM = selectRegistros($sqlIdAlunoM);
 
-    if($resultadoIdAluno == []){
+    if($resultadoIdAlunoM == []){
         $idLivre = true;
     }else{
         $idAluno++;
     }
 }
 
-
-
-     //* INSERINDO DADO
+//* INSERINDO DADO
 if($validado){
-    $sqlInAluno = "INSERT INTO `alunomatriculado`(`idaluno`, `idmateria`, `idalunomatriculado`) VALUES($idAluno, '$idMateria', '$idAlunomatriculado')"; # ERRO
+    $sqlInAluno = "INSERT INTO `alunomatriculado`(`idaluno`, `idmateria`, `idalunomatriculado`) VALUES($idAluno, $idMateria, $idAlunoM)";
     $resultado = insereRegistro($sqlInAluno);
     
     echo $resultado;
 }
+
+echo "<br><br><button onclick='document.location.replace(`./indexAMatriculado.php`)'>Voltar</button>";
 ?>

@@ -32,5 +32,7 @@ if($validado){
     $resultado = insereRegistro($sqlInAluno);
     
     echo $resultado;
-}    
+}
+
+echo "<br><br><button onclick='document.location.replace(`../index.php`)'>Voltar</button>";
 ?>

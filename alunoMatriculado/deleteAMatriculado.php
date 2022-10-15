@@ -2,33 +2,29 @@
 require_once '../mysql.php';
 
 $idAmatriculado = $_POST['idAlunosmatric'];
-
 $validado = true;
+
 $listaAvaliacao = [];
-if(!is_numeric($idAmatriculado))
-{
+
+//! VERIFICA SE O ID Do ALUNO MATRICULADO É UM NÚMERO 
+if(!is_numeric($idAmatriculado)){
     $validado = false;
-}
-else
-{
+    echo 'Verifique o aluno matriculado, alunos e materia escolhidos e tente novamente!<br>';
+}else{
     $sqlidAmatriculado = "SELECT idalunomatriculado FROM alunomatriculado where idAlunomatriculado = $idAmatriculado"; 
     $listaidAmatriculado = selectRegistros($sqlidAmatriculado);
 }
 
-if($listaAvaliacao=[])
-{
+if($listaAvaliacao=[]){
     $validado=false;
-    echo "edição nao permitida";
+    echo 'Deleção não permitida, registro não encontrado!';
 }
-if($validado)
-{
+if($validado){
     $sqldelAmatriculado = "DELETE FROM `alunomatriculado` WHERE `idalunomatriculado` = $idAmatriculado";
     $resultado = deleteRegistro($sqldelAmatriculado);
 
     echo $resultado;
 }
-else
-{
-    echo "dados inválidos";
-}
+
+echo "<br><br><button onclick='document.location.replace(`./indexAMatriculado.php`)'>Voltar</button>";
 ?>

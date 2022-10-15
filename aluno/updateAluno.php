@@ -27,3 +27,6 @@ if($validado){
 }else{
     echo 'Dados inválidos, verifique os dados inseridos!';
 }
+
+echo "<br><br><button onclick='document.location.replace(`../index.php`)'>Voltar</button>";
+?>

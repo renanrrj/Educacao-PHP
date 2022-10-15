@@ -19,3 +19,6 @@ if ($validado) {
 
     echo $resultado;
 }
+
+echo "<br><br><button onclick='document.location.replace(`./indexLogin.php`)'>Voltar</button>";
+?>

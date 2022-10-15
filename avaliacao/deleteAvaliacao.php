@@ -4,37 +4,31 @@ require_once '../mysql.php';
 $idMateria = $_POST['IdMateria'];
 $idAvaliacao = $_POST['IdAvaliacao'];
 $descricao = addslashes ($_POST['DEScricao']);
-
 $validado = true;
 
 $listaAvaliacao = [];
-if(!is_numeric($idAvaliacao))
-{
+
+//! VERIFICA SE O ID DA AVALIAÇÃO É UM NÚMERO 
+if(!is_numeric($idAvaliacao)){
     $validado = false;
 }
-else
-{
-    $sqlidAvaliacao = "SELECT idavaliacao FROM avaliacao where idavaliacao = $idAvaliacao";
-    $listaidAvaliacao = selectRegistros($sqlidAvaliacao);
+else{
+    $sqlAvaliacao = "SELECT * FROM avaliacao where idavaliacao = $idAvaliacao";
+    $listaAvaliacao = selectRegistros($sqlAvaliacao);
 }
 
-if($listaAvaliacao=[])
-{
+//! VERIFICA SE EXISTE ALGUMA AVALIAÇÃO DE ALUNO COM ESSE ID, É NECESSÁRIO QUE EXISTA
+if($listaAvaliacao=[]){
     $validado=false;
-    echo "edição nao permitida";
+    echo "Deleção não permitida, registro não encontrado!";
 }
 
-
-
-if($validado)
-{
+if($validado){
     $sqldelAvaliacao = "DELETE FROM `avaliacao` WHERE `idavaliacao` = $idAvaliacao";
     $resultado = deleteRegistro($sqldelAvaliacao);
 
     echo $resultado;
 }
-else
-{
-    echo "dados inválidos";
-}
+
+echo "<br><br><button onclick='document.location.replace(`./indexAvaliacao.php`)'>Voltar</button>";
 ?>

@@ -64,7 +64,7 @@
             </select>
             <b>Necessário preencher apenas para atualizar ou deletar, é ignorado ao inserir</b>
         </p>
-        <p>Nome do aluno: <input type="text" class="input" name="nmaluno"/></p>
+        <p>Nome do aluno: <input type="text" class="input" name="nmaluno" required/></p>
     </form>
 
     <input id="btnEnviar" type="button" value="Enviar" onclick="document.getElementById('form').action = './aluno/insertAluno.php'; document.getElementById('form').submit()">

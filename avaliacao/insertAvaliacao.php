@@ -1,16 +1,16 @@
-<?php # COMPLETO
+<?php
  require_once '../mysql.php';
 
 $idMateria = $_POST['IdMateria'];
 $idAvaliacao = $_POST['IdAvaliacao'];
-$descricao = addslashes ($_POST['DEScricao']);
+$descricao = addslashes($_POST['DEScricao']);
 
 $sqlAvaliacao = "SELECT * FROM avaliacao where dsavaliacao";  
 $listadsAvaliacao = selectRegistros($sqlAvaliacao);
 
 $validado = true;
 
-if($listadsAvaliacao == [] ){
+if($listadsAvaliacao != [] ){
     $validado = false;
     echo 'Inserção nao permitida';
 }
@@ -30,7 +30,7 @@ while($idLivre == false){
 }
 
 if($validado){
-    $sqlInAluno = "INSERT INTO `avaliacao`(`idmateria`, `dsavaliacao`, `idavaliacao`) VALUES( $idAvaliacao,'$descricao', $idMateria)";
+    $sqlInAluno = "INSERT INTO `avaliacao`(`idmateria`, `dsavaliacao`, `idavaliacao`) VALUES( $idMateria,'$descricao',$idAvaliacao)";
     $resultado = insereRegistro($sqlInAluno);
     
     echo $resultado;}

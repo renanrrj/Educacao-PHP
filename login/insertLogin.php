@@ -32,4 +32,6 @@ if(is_numeric($idAluno) && $login != "" && $senha != "")
 }else{
     echo 'Dados inválidos, verifique os dados inseridos!';
 }
+
+echo "<br><br><button onclick='document.location.replace(`./indexLogin.php`)'>Voltar</button>";
 ?>
